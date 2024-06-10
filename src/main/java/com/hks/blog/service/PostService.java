@@ -106,11 +106,11 @@ public class PostService {
         var user=(User)auth.getPrincipal();
        var post= postRepository.findById(id)
                .orElseThrow(()-> new EntityNotFound("Post Not Found"));
-       if (!post.getUser().getEmail().equals(user.getEmail())){
-           throw new OperationPermittedException("can not delete this post because not owen it");
+       if (post.getUser().getEmail().equals(user.getEmail())||user.getEmail().equals("admin@gmail.com")){
+           commentRepository.deleteAllByPostId(post.getId());
+           postRepository.delete(post);
        }
-       commentRepository.deleteAllByPostId(post.getId());
-       postRepository.delete(post);
+       throw new OperationPermittedException("can not delete this post because not owen it");
    }
 
     public MessageResponse updateImage(Long postId, MultipartFile image, Authentication auth) {

@@ -29,11 +29,11 @@ public class AuthController {
     public ResponseEntity<?> activationEmail(@RequestParam String otp) throws MessagingException {
         return ResponseEntity.ok(authService.activateAccount(otp));
     }
-    @GetMapping("/get-otp")
+    @GetMapping("/forget-password")
     public ResponseEntity<?>sentOtpToUser(@RequestParam String email) throws MessagingException {
         return ResponseEntity.ok(authService.sendOtpToUser(email));
     }
-    @GetMapping("/verify-otp/{email}")
+    @GetMapping("/forget-password/verify-otp/{email}")
     public ResponseEntity<?>verifyOtp(@PathVariable String email,@RequestParam String code) throws MessagingException {
         return ResponseEntity.ok(authService.verifyOtp(email,code));
     }

@@ -50,7 +50,7 @@ public class CommentService {
     public List<CommentResponse> viewAllCommentByPost(Long postId){
         var post=postRepository.findById(postId).
                 orElseThrow(()->new EntityNotFound("Post not found"));
-        var comments=commentRepository.findAllByPostId(postId);
+        var comments=commentRepository.findAllByPostId(post.getId());
         List<CommentResponse>commentResponses=comments
                 .stream().map(commentMapper::toCommentResponse)
                 .toList();

@@ -2,8 +2,10 @@ package com.hks.blog.controller;
 
 import com.hks.blog.dto.ChangePasswordDto;
 import com.hks.blog.dto.CommentDto;
+import com.hks.blog.dto.ReportDto;
 import com.hks.blog.service.CommentService;
 import com.hks.blog.service.PostService;
+import com.hks.blog.service.ReportService;
 import com.hks.blog.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +20,7 @@ public class UserController {
     private final UserService userService;
     private final PostService postService;
     private final CommentService commentService;
+    private final ReportService reportService;
 
     //Manage post
     @PostMapping("/post/create")
@@ -76,6 +79,12 @@ public class UserController {
     public ResponseEntity<?>deleteComment(@PathVariable Long commentId,Authentication auth){
         commentService.deleteComment(commentId,auth);
         return ResponseEntity.ok().build();
+    }
+
+    // Create Report
+    @PostMapping("/create-report")
+    public ResponseEntity<?>createReport(@RequestBody ReportDto reportDto){
+        return ResponseEntity.ok(reportService.createReport(reportDto));
     }
 
 

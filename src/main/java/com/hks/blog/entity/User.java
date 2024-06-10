@@ -48,6 +48,8 @@ public class User implements UserDetails, Principal {
     
     @OneToMany(mappedBy = "user")
     private List<Comment>comments;
+    @OneToMany(mappedBy = "user")
+    private List<Report>reports;
     @Override
     public String getName() {
         return email;
